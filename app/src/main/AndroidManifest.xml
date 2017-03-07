@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="maffre.com.outerspacemanager.outerspacemanager">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,21 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Outer Space Manager">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
-
-    <activity
-        android:name="maffre.com.outerspacemanager.outerspacemanager.SignUpActivity"
-        android:label="Outer Space Manager" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category
-                android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="Outer Space Manager"></activity>
+        <activity android:name=".BuildingsActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 
 /**
@@ -20,6 +22,10 @@ public interface loginInterface {
 
 
     @GET("/api/v1/buildings/list")
-    Call<List<Building>> getBuildings (@Header("x-access-token") String token);
+    Call<Buildings> getBuildings (@Header("x-access-token") String token);
+
+
+    @POST("/api/v1/buildings/create/{buildingId}")
+    Call<Building> createBuilding (@Header("x-access-token") String token, @Path("buildingId") int buildingId);
 
 }

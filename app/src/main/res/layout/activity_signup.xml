@@ -47,10 +47,19 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/connect_button"
+    android:id="@+id/inscription_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Inscription" />
+
+
+
+    <Button
+        android:id="@+id/connection_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Connection" />
+
 
     <TextView
         android:id="@+id/fail_txt"

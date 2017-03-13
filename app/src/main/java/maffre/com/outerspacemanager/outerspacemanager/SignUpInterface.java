@@ -18,4 +18,9 @@ public interface SignUpInterface {
     @POST("/api/v1/auth/create")
     Call<User> createUser( @Body User user);
 
+
+
+    @POST("/api/v1/auth/login")
+    Call<User> connectUser( @Body User user);
+
 }

@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/username"
         android:clickable="false"
-        android:capitalize="characters"
         android:fontFamily="cursive"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -51,15 +50,15 @@
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
         android:layout_marginTop="20dp"
-        android:id="@+id/button2" />
+        android:id="@+id/buildings" />
 
     <Button
         android:text="Flotte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
-        android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2"
+        android:layout_below="@+id/buildings"
+        android:layout_alignRight="@+id/buildings"
+        android:layout_alignEnd="@+id/buildings"
         android:layout_marginTop="20dp"
         android:id="@+id/button3" />
 
@@ -102,4 +101,22 @@
         android:layout_alignStart="@+id/button5"
         android:layout_marginTop="35dp"
         android:id="@+id/deconnect" />
+
+    <TextView
+        android:text="mineraux :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/points"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/mineraux" />
+
+    <TextView
+        android:text="gaz :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/gaz" />
 </RelativeLayout>

@@ -30,13 +30,18 @@ public class SignUpActivity extends Activity implements View.OnClickListener{
     private static final String TAG = SignUpActivity.class.getSimpleName();
     private EditText password_field;
     private EditText id_field;
-    private Button connect_button;
+    private Button connection_button;
+    private Button inscription_button;
     private TextView fail_txt;
     public static final String USER_DATA = "MyUserDatas";
     Gson gson = new Gson();
 
 
-
+    //retrofit
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://outer-space-manager.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,24 +58,18 @@ public class SignUpActivity extends Activity implements View.OnClickListener{
         //récupération des éléments du layout
         password_field = (EditText) findViewById(R.id.password_field);
         id_field = (EditText) findViewById(R.id.id_field);
-        connect_button = (Button) findViewById(R.id.connect_button);
+        connection_button = (Button) findViewById(R.id.connection_button);
+        inscription_button = (Button) findViewById(R.id.inscription_button);
         fail_txt = (TextView) findViewById(R.id.fail_txt);
-        connect_button.setOnClickListener(this);
+        connection_button.setOnClickListener(this);
+        inscription_button.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.connect_button:
-
-
-
-                //retrofit
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://outer-space-manager.herokuapp.com")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+            case R.id.inscription_button:
 
 
                 //appel de l'interface create
@@ -116,6 +115,29 @@ public class SignUpActivity extends Activity implements View.OnClickListener{
                 });
 
                 //fail_txt.;
+
+                break;
+            case R.id.connection_button:
+
+                //appel de l'interface create
+                SignUpInterface service2 = retrofit.create(SignUpInterface.class);
+                Call<User> request2 = service2.connectUser(new User(id_field.getText().toString(), password_field.getText().toString()));
+
+
+                request2.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+
+                        Intent myIntent = new Intent(getApplicationContext(), MenuActivity.class);
+                        startActivity(myIntent);
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
+                    }
+                });
 
                 break;
         }

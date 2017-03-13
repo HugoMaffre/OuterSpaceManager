@@ -1,6 +1,7 @@
 package maffre.com.outerspacemanager.outerspacemanager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -14,12 +15,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
 
+
+
+
+
 public class MenuActivity extends Activity implements View.OnClickListener {
+
 
     private SharedPreferences settings;
     private TextView points;
+    private TextView gaz;
+    private TextView mineraux;
     private TextView username;
     private Button deconnect;
+    private Button buildings;
 
 
 
@@ -33,8 +42,12 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
         username = (TextView) findViewById(R.id.username);
         points = (TextView) findViewById(R.id.points);
+        gaz = (TextView) findViewById(R.id.gaz);
+        mineraux = (TextView) findViewById(R.id.mineraux);
         deconnect = (Button) findViewById(R.id.deconnect);
+        buildings = (Button) findViewById(R.id.buildings);
         deconnect.setOnClickListener(this);
+        buildings.setOnClickListener(this);
 
         // Current Access Token
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
@@ -82,6 +95,13 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("accessToken", "");
 
+                break;
+
+
+            case R.id.buildings:
+
+                Intent myIntent = new Intent(getApplicationContext(), BuildingsActivity.class);
+                startActivity(myIntent);
                 break;
         }
     }

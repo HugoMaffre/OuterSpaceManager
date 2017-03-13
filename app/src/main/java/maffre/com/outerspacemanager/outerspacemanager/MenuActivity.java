@@ -24,13 +24,50 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
     private SharedPreferences settings;
     private TextView points;
-    private TextView gaz;
+    private TextView gas;
     private TextView mineraux;
     private TextView username;
     private Button deconnect;
     private Button buildings;
 
 
+    //retrofit
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://outer-space-manager.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Current Access Token
+        SharedPreferences users = getSharedPreferences(USER_DATA, 0);
+        String currentAccessToken = users.getString("accessToken", "");
+        //appel de l'interface create
+        loginInterface service = retrofit.create(loginInterface.class);
+        Call<User> request= service.getUser(currentAccessToken);
+
+        request.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                username.setText(response.body().getUsername());
+                points.setText(String.valueOf(response.body().getPoints()));
+                gas.setText(String.valueOf(response.body().getGas()));
+                mineraux.setText(String.valueOf(response.body().getMinerals()));
+
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +79,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
         username = (TextView) findViewById(R.id.username);
         points = (TextView) findViewById(R.id.points);
-        gaz = (TextView) findViewById(R.id.gaz);
+        gas = (TextView) findViewById(R.id.gaz);
         mineraux = (TextView) findViewById(R.id.mineraux);
         deconnect = (Button) findViewById(R.id.deconnect);
         buildings = (Button) findViewById(R.id.buildings);
@@ -54,13 +91,6 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         String currentAccessToken = users.getString("accessToken", "");
 
 
-
-        //retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://outer-space-manager.herokuapp.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
         //appel de l'interface create
         loginInterface service = retrofit.create(loginInterface.class);
         Call<User> request= service.getUser(currentAccessToken);
@@ -70,8 +100,10 @@ public class MenuActivity extends Activity implements View.OnClickListener {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                username.append(response.body().getUsername());
-                points.append(String.valueOf(response.body().getPoints()));
+                username.setText(response.body().getUsername());
+                points.setText(String.valueOf(response.body().getPoints()));
+                gas.setText(String.valueOf(response.body().getGas()));
+                mineraux.setText(String.valueOf(response.body().getMinerals()));
 
 
             }

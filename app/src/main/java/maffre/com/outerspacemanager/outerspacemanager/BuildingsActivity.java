@@ -1,5 +1,6 @@
 package maffre.com.outerspacemanager.outerspacemanager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    private ProgressDialog mProgressDialog;
 
 
     @Override
@@ -43,6 +45,9 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buildings);
+
+        mProgressDialog = ProgressDialog.show(this, "",
+                "Loading buildings", true);
 
         // Current Access Token
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
@@ -61,14 +66,9 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
             @Override
             public void onResponse(Call<Buildings> call, Response<Buildings> response) {
 
-                ArrayList<String> names = new ArrayList<String>();
-
-                for (int i = 0; i < response.body().arraySize(); i++) {
-                    names.add(response.body().getBuildings().get(i).getName());
-                }
-
-                buildingsList.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names));
-
+                ArrayList<Building> buildings = response.body().getBuildings();
+                buildingsList.setAdapter(new CustomCell(getApplicationContext(), buildings));
+                mProgressDialog.dismiss();
 
             }
 
@@ -117,7 +117,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
 
                                 } else {
                                     Context context = getApplicationContext();
-                                    CharSequence text = "Error";
+                                    CharSequence text = "Déjà en construction";
                                     int duration = Toast.LENGTH_SHORT;
 
                                     Toast toast = Toast.makeText(context, text, duration);

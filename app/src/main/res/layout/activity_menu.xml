@@ -11,112 +11,109 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="maffre.com.outerspacemanager.outerspacemanager.MenuActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:id="@+id/username"
-        android:clickable="false"
-        android:fontFamily="cursive"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <TextView
-        android:text="points : "
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/points" />
-
-    <Button
-        android:text="Vue générale"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/points"
-        android:layout_marginTop="20dp"
-        android:id="@+id/button" />
-
-    <Button
-        android:text="Batiments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
-        android:layout_marginTop="20dp"
-        android:id="@+id/buildings" />
-
-    <Button
-        android:text="Flotte"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buildings"
-        android:layout_alignRight="@+id/buildings"
-        android:layout_alignEnd="@+id/buildings"
-        android:layout_marginTop="20dp"
-        android:id="@+id/button3" />
-
-    <Button
-        android:text="Recherche"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button3"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_marginTop="20dp"
-        android:id="@+id/button4" />
-
-    <Button
-        android:text="Chantier spatial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button4"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignStart="@+id/button4"
-        android:layout_marginTop="20dp"
-        android:id="@+id/button5" />
-
-    <Button
-        android:text="Galaxie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button5"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignStart="@+id/button5"
-        android:layout_marginTop="25dp"
-        android:id="@+id/button6" />
-
-    <Button
-        android:text="Déconnection"
+        android:text="minerals :"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button5"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignStart="@+id/button5"
-        android:layout_marginTop="35dp"
-        android:id="@+id/deconnect" />
-
-    <TextView
-        android:text="mineraux :"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/points"
+        android:id="@+id/mineraux"
+        android:layout_below="@+id/gaz"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/mineraux" />
+        android:layout_marginTop="18dp" />
 
     <TextView
         android:text="gaz :"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/gaz"
         android:layout_below="@+id/username"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/gaz" />
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:text="Flotte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:id="@+id/button3"
+        android:layout_below="@+id/buildings"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Recherche"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:id="@+id/button4"
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Galaxie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/galaxie"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/chantierSpatial"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="points : "
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/points"
+        android:layout_marginBottom="11dp"
+        android:layout_above="@+id/buildings"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
+
+    <Button
+        android:text="Batiments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buildings"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/mineraux"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Chantier spatial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chantierSpatial"
+        android:layout_below="@+id/button4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:id="@+id/username"
+        android:clickable="false"
+        android:fontFamily="cursive"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Déconnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:id="@+id/deconnect"
+        android:layout_below="@+id/galaxie"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

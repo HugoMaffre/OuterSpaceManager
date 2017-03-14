@@ -26,9 +26,11 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     private TextView points;
     private TextView gas;
     private TextView mineraux;
+    private Button galaxie;
     private TextView username;
     private Button deconnect;
     private Button buildings;
+    private Button chantierSpatial;
 
 
     //retrofit
@@ -54,10 +56,9 @@ public class MenuActivity extends Activity implements View.OnClickListener {
             public void onResponse(Call<User> call, Response<User> response) {
 
                 username.setText(response.body().getUsername());
-                points.setText(String.valueOf(response.body().getPoints()));
-                gas.setText(String.valueOf(response.body().getGas()));
-                mineraux.setText(String.valueOf(response.body().getMinerals()));
-
+                points.setText("Points :"+String.valueOf(response.body().getPoints()));
+                gas.setText("Cristal :"+String.valueOf(response.body().getGas()));
+                mineraux.setText("Metal :"+String.valueOf(response.body().getMinerals()));
 
             }
 
@@ -83,8 +84,13 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         mineraux = (TextView) findViewById(R.id.mineraux);
         deconnect = (Button) findViewById(R.id.deconnect);
         buildings = (Button) findViewById(R.id.buildings);
+        galaxie = (Button) findViewById(R.id.galaxie);
+        chantierSpatial = (Button) findViewById(R.id.chantierSpatial);
         deconnect.setOnClickListener(this);
         buildings.setOnClickListener(this);
+        galaxie.setOnClickListener(this);
+        chantierSpatial.setOnClickListener(this);
+
 
         // Current Access Token
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
@@ -101,9 +107,9 @@ public class MenuActivity extends Activity implements View.OnClickListener {
             public void onResponse(Call<User> call, Response<User> response) {
 
                 username.setText(response.body().getUsername());
-                points.setText(String.valueOf(response.body().getPoints()));
-                gas.setText(String.valueOf(response.body().getGas()));
-                mineraux.setText(String.valueOf(response.body().getMinerals()));
+                points.setText("Points :"+String.valueOf(response.body().getPoints()));
+                gas.setText("Cristal :"+String.valueOf(response.body().getGas()));
+                mineraux.setText("Metal :"+String.valueOf(response.body().getMinerals()));
 
 
             }
@@ -126,14 +132,24 @@ public class MenuActivity extends Activity implements View.OnClickListener {
                 // Current Access Token
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("accessToken", "");
-
                 break;
-
 
             case R.id.buildings:
 
                 Intent myIntent = new Intent(getApplicationContext(), BuildingsActivity.class);
                 startActivity(myIntent);
+                break;
+
+            case R.id.galaxie:
+
+                Intent usersIntent = new Intent(getApplicationContext(), UsersActivity.class);
+                startActivity(usersIntent);
+                break;
+
+            case R.id.chantierSpatial:
+
+                Intent chantierIntent = new Intent(getApplicationContext(), ChantierActivity.class);
+                startActivity(chantierIntent);
                 break;
         }
     }

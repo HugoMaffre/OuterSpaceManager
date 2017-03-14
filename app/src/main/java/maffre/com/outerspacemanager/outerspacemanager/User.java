@@ -10,7 +10,9 @@ public class User {
     public String password;
     public String token;
     public long expires;
-    public int points;
+    public double minerals;
+    public double gas;
+    public float points;
 
     public User(String username, String password){
         this.username = username;
@@ -23,7 +25,15 @@ public class User {
         return username;
     }
 
-    public int getPoints() {
+    public double getGas() {
+        return gas;
+    }
+
+    public double getMinerals() {
+        return minerals;
+    }
+
+    public float getPoints() {
         return points;
     }
 

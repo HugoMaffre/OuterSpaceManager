@@ -24,6 +24,8 @@
             android:name=".MenuActivity"
             android:label="Outer Space Manager"></activity>
         <activity android:name=".BuildingsActivity"></activity>
+        <activity android:name=".UsersActivity"></activity>
+        <activity android:name=".ChantierActivity"></activity>
     </application>
 
 </manifest>

@@ -20,12 +20,25 @@ public interface loginInterface {
     Call<User> getUser (@Header("x-access-token") String token);
 
 
+    @GET("/api/v1/users/0/11")
+    Call<Users> getUsers (@Header("x-access-token") String token);
+
 
     @GET("/api/v1/buildings/list")
     Call<Buildings> getBuildings (@Header("x-access-token") String token);
 
 
+    @GET("/api/v1/ships")
+    Call<Ships> getShips (@Header("x-access-token") String token);
+
+
     @POST("/api/v1/buildings/create/{buildingId}")
     Call<Building> createBuilding (@Header("x-access-token") String token, @Path("buildingId") int buildingId);
+
+
+    @POST("/api/v1/ships/create/{shipId}")
+    Call<Ship> createShip (@Header("x-access-token") String token, @Path("shipId") int shipId);
+
+
 
 }

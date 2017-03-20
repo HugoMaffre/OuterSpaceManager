@@ -28,16 +28,19 @@ public interface loginInterface {
     Call<Buildings> getBuildings (@Header("x-access-token") String token);
 
 
+    @GET("/api/v1/fleet/list")
+    Call<Ships> getFleet (@Header("x-access-token") String token);
+
+
     @GET("/api/v1/ships")
     Call<Ships> getShips (@Header("x-access-token") String token);
-
 
     @POST("/api/v1/buildings/create/{buildingId}")
     Call<Building> createBuilding (@Header("x-access-token") String token, @Path("buildingId") int buildingId);
 
 
     @POST("/api/v1/ships/create/{shipId}")
-    Call<Ship> createShip (@Header("x-access-token") String token, @Path("shipId") int shipId);
+    Call<Ship> createShip (@Header("x-access-token") String token, @Path("shipId") int shipId, @Body shipQueryObject amount);
 
 
 

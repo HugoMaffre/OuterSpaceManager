@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -19,13 +18,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
 
 /**
- * Created by mac2 on 14/03/2017.
+ * Created by mac2 on 20/03/2017.
  */
 
-public class UsersActivity extends AppCompatActivity{
+public class FleetActivity extends AppCompatActivity {
 
 
-    private ListView usersList;
+    private ListView fleetList;
     //retrofit
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://outer-space-manager.herokuapp.com")
@@ -38,39 +37,38 @@ public class UsersActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.users_layout);
+        setContentView(R.layout.fleet_layout);
 
         mProgressDialog = ProgressDialog.show(this, "",
-                "Loading users", true);
+                "Loading ships", true);
 
         // Current Access Token
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
         String currentAccessToken = users.getString("accessToken", "");
 
 
-        usersList = (ListView) findViewById(R.id.usersList);
+        fleetList = (ListView) findViewById(R.id.fleetList);
 
         //appel de l'interface create
         loginInterface service = retrofit.create(loginInterface.class);
-        Call<Users> request = service.getUsers(currentAccessToken);
+        Call<Ships> request = service.getFleet(currentAccessToken);
 
 
-        request.enqueue(new Callback<Users>() {
+        request.enqueue(new Callback<Ships>() {
             @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
+            public void onResponse(Call<Ships> call, Response<Ships> response) {
 
-                ArrayList<String> usernames = new ArrayList<String>();
-
+                ArrayList<String> ships = new ArrayList<String>();
                 for (int i = 0; i < response.body().arraySize(); i++) {
-                    usernames.add("Username :"+response.body().getUsers().get(i).getUsername()+"\n"+response.body().getUsers().get(i).getPoints()+" points");
+                    ships.add(response.body().getShips().get(i).getName()+"\n Nombre :"+response.body().getShips().get(i).getAmount());
                 }
-
-                usersList.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, usernames));
+                fleetList.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ships));
                 mProgressDialog.dismiss();
+
             }
 
             @Override
-            public void onFailure(Call<Users> call, Throwable t) {
+            public void onFailure(Call<Ships> call, Throwable t) {
 
             }
         });

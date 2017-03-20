@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static java.lang.String.valueOf;
 import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
 
 /**
@@ -29,6 +31,7 @@ import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER
 public class ChantierActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ListView shipsList;
+    private EditText amountText;
 
 
     //retrofit
@@ -46,6 +49,8 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chantier_layout);
 
+
+
         mProgressDialog = ProgressDialog.show(this, "",
                 "Loading ships", true);
 
@@ -56,6 +61,9 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
 
         shipsList = (ListView) findViewById(R.id.shipsList);
         shipsList.setOnItemClickListener(this);
+        amountText = (EditText) findViewById(R.id.amount);
+
+
 
         //appel de l'interface create
         loginInterface service = retrofit.create(loginInterface.class);
@@ -87,6 +95,11 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
         final String currentAccessToken = users.getString("accessToken", "");
 
+        //get amount
+        final int amount = Integer.valueOf(amountText.getText().toString());
+
+
+
         new AlertDialog.Builder(this)
                 .setTitle("Nouveau vaisseau")
                 .setMessage("Etes vous sur de vouloir construire un nouveau vaisseau ?")
@@ -95,7 +108,7 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
 
 
                         loginInterface service = retrofit.create(loginInterface.class);
-                        Call<Ship> request= service.createShip(currentAccessToken, position);
+                        Call<Ship> request= service.createShip(currentAccessToken, position, new shipQueryObject(amount));
 
 
                         request.enqueue(new Callback<Ship>() {

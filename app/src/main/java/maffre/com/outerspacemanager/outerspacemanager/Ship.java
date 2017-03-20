@@ -7,11 +7,12 @@ package maffre.com.outerspacemanager.outerspacemanager;
 public class Ship {
 
 
-    public String name;
 
-    public Ship(String name, int gasCos, int life, int maxAttack, int minAttack, int mineralCost, int shipId, int shield, int spatioportLevelNeeded, int speed, int timeToBuild) {
+
+    public Ship(String name, int gasCost, int life, int maxAttack, int minAttack, int mineralCost, int shipId, int shield, int spatioportLevelNeeded, int speed, int timeToBuild, int amount) {
         this.name = name;
-        this.gasCos = gasCos;
+        this.amount = amount;
+        this.gasCost = gasCost;
         this.life = life;
         this.maxAttack = maxAttack;
         this.minAttack = minAttack;
@@ -23,7 +24,9 @@ public class Ship {
         this.timeToBuild = timeToBuild;
     }
 
-    public int gasCos;
+    public String name;
+    public int gasCost;
+    public int amount;
     public int life;
     public int maxAttack;
     public int minAttack;
@@ -42,8 +45,12 @@ public class Ship {
         return name;
     }
 
-    public int getGasCos() {
-        return gasCos;
+    public int getAmount() {
+        return amount;
+    }
+
+    public int getGasCost() {
+        return gasCost;
     }
 
     public int getLife() {

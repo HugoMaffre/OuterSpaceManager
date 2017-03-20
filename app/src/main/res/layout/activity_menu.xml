@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
-        android:id="@+id/button3"
+        android:id="@+id/fleet"
         android:layout_below="@+id/buildings"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:id="@+id/button4"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/fleet"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

@@ -31,6 +31,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     private Button deconnect;
     private Button buildings;
     private Button chantierSpatial;
+    private Button fleet;
 
 
     //retrofit
@@ -79,6 +80,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
 
         username = (TextView) findViewById(R.id.username);
+        fleet = (Button) findViewById(R.id.fleet);
         points = (TextView) findViewById(R.id.points);
         gas = (TextView) findViewById(R.id.gaz);
         mineraux = (TextView) findViewById(R.id.mineraux);
@@ -90,6 +92,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         buildings.setOnClickListener(this);
         galaxie.setOnClickListener(this);
         chantierSpatial.setOnClickListener(this);
+        fleet.setOnClickListener(this);
 
 
         // Current Access Token
@@ -150,6 +153,13 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
                 Intent chantierIntent = new Intent(getApplicationContext(), ChantierActivity.class);
                 startActivity(chantierIntent);
+                break;
+
+
+            case R.id.fleet:
+
+                Intent fleetIntent = new Intent(getApplicationContext(), FleetActivity.class);
+                startActivity(fleetIntent);
                 break;
         }
     }

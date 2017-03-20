@@ -1,11 +1,10 @@
 package maffre.com.outerspacemanager.outerspacemanager;
 
 /**
- * Created by mac2 on 07/03/2017.
+ * Created by mac2 on 20/03/2017.
  */
 
-public class Building {
-
+public class Research {
     private int amountOfEffectByLevel;
     private int amountOfEffectLevel;
     private boolean building;
@@ -18,7 +17,6 @@ public class Building {
     private String name;
     private int timeToBuildByLevel;
     private int timeToBuildLevel0;
-    private String imageUrl;
 
 
 
@@ -26,7 +24,7 @@ public class Building {
 
 
 
-    public Building(int amountOfEffectByLevel, int amountOfEffectLevel, boolean building, String effect, int gasCostByLevel, int gasCostLevel, int level, int mineralCostByLevel, int mineralCostLevel, String name, int timeToBuildByLevel, int timeToBuildLevel0, String imageUrl) {
+    public Research(int amountOfEffectByLevel, int amountOfEffectLevel, boolean building, String effect, int gasCostByLevel, int gasCostLevel, int level, int mineralCostByLevel, int mineralCostLevel, String name, int timeToBuildByLevel, int timeToBuildLevel0) {
         this.amountOfEffectByLevel = amountOfEffectByLevel;
         this.amountOfEffectLevel = amountOfEffectLevel;
         this.building = building;
@@ -39,7 +37,6 @@ public class Building {
         this.name = name;
         this.timeToBuildByLevel = timeToBuildByLevel;
         this.timeToBuildLevel0 = timeToBuildLevel0;
-        this.imageUrl = imageUrl;
     }
 
 
@@ -92,7 +89,4 @@ public class Building {
     public int getTimeToBuildLevel0() {
         return timeToBuildLevel0;
     }
-
-    public String getImageUrl() { return imageUrl; }
-
 }

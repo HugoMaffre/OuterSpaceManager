@@ -3,37 +3,34 @@ package maffre.com.outerspacemanager.outerspacemanager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Header;
 
 import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
 
-public class BuildingsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+/**
+ * Created by mac2 on 20/03/2017.
+ */
+
+public class ResearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
 
-    private ListView buildingsList;
+    private ListView researchesList;
     //retrofit
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://outer-space-manager.herokuapp.com")
@@ -47,35 +44,36 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buildings);
+        setContentView(R.layout.research_layout);
 
         mProgressDialog = ProgressDialog.show(this, "",
-                "Loading buildings", true);
+                "Loading researches", true);
 
         // Current Access Token
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
         String currentAccessToken = users.getString("accessToken", "");
 
-        buildingsList = (ListView) findViewById(R.id.buildingsList);
-        buildingsList.setOnItemClickListener(this);
+        researchesList = (ListView) findViewById(R.id.researchesList);
+        researchesList.setOnItemClickListener(this);
 
         //appel de l'interface create
         loginInterface service = retrofit.create(loginInterface.class);
-        Call<Buildings> request = service.getBuildings(currentAccessToken);
+        Call<Researches> request = service.getResearches(currentAccessToken);
 
 
-        request.enqueue(new Callback<Buildings>() {
+        request.enqueue(new Callback<Researches>() {
             @Override
-            public void onResponse(Call<Buildings> call, Response<Buildings> response) {
+            public void onResponse(Call<Researches> call, Response<Researches> response) {
 
-                ArrayList<Building> buildings = response.body().getBuildings();
-                buildingsList.setAdapter(new CustomCell(BuildingsActivity.this, buildings));
+
+                ArrayList<Research> researches = response.body().getResearches();
+                researchesList.setAdapter(new SearchCustomCell(ResearchActivity.this, researches));
                 mProgressDialog.dismiss();
 
             }
 
             @Override
-            public void onFailure(Call<Buildings> call, Throwable t) {
+            public void onFailure(Call<Researches> call, Throwable t) {
 
             }
         });
@@ -91,19 +89,19 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
         final String currentAccessToken = users.getString("accessToken", "");
 
         new AlertDialog.Builder(this)
-                .setTitle("Nouveau batiment")
-                .setMessage("Etes vous sur de vouloir construire un nouveau batiment ?")
+                .setTitle("Nouvelle recherche")
+                .setMessage("Etes vous sur de vouloir lancer cette recherche ?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
 
                         loginInterface service = retrofit.create(loginInterface.class);
-                        Call<Building> request= service.createBuilding(currentAccessToken, position);
+                        Call<Research> request= service.createResearch(currentAccessToken, position);
 
 
-                        request.enqueue(new Callback<Building>() {
+                        request.enqueue(new Callback<Research>() {
                             @Override
-                            public void onResponse(Call<Building> call, Response<Building> response) {
+                            public void onResponse(Call<Research> call, Response<Research> response) {
 
 
 
@@ -111,7 +109,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
                                 if (response.code() == 200) {
 
                                     Context context = getApplicationContext();
-                                    CharSequence text = "Batiment augmenté";
+                                    CharSequence text = "Recherche augmentée";
                                     int duration = Toast.LENGTH_SHORT;
 
                                     Toast toast = Toast.makeText(context, text, duration);
@@ -119,7 +117,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
 
                                 } else {
                                     Context context = getApplicationContext();
-                                    CharSequence text = "Déjà en construction";
+                                    CharSequence text = "Déjà en recherche";
                                     int duration = Toast.LENGTH_SHORT;
 
                                     Toast toast = Toast.makeText(context, text, duration);
@@ -132,7 +130,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
                             }
 
                             @Override
-                            public void onFailure(Call<Building> call, Throwable t) {
+                            public void onFailure(Call<Research> call, Throwable t) {
 
                             }
                         });

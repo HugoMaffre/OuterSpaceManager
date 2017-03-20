@@ -27,6 +27,8 @@ public interface loginInterface {
     @GET("/api/v1/buildings/list")
     Call<Buildings> getBuildings (@Header("x-access-token") String token);
 
+    @GET("/api/v1/searches/list")
+    Call<Researches> getResearches (@Header("x-access-token") String token);
 
     @GET("/api/v1/fleet/list")
     Call<Ships> getFleet (@Header("x-access-token") String token);
@@ -38,6 +40,8 @@ public interface loginInterface {
     @POST("/api/v1/buildings/create/{buildingId}")
     Call<Building> createBuilding (@Header("x-access-token") String token, @Path("buildingId") int buildingId);
 
+    @POST("/api/v1/searches/create/{searchId}")
+    Call<Research> createResearch (@Header("x-access-token") String token, @Path("searchId") int searchId);
 
     @POST("/api/v1/ships/create/{shipId}")
     Call<Ship> createShip (@Header("x-access-token") String token, @Path("shipId") int shipId, @Body shipQueryObject amount);

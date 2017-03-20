@@ -31,6 +31,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
     private Button deconnect;
     private Button buildings;
     private Button chantierSpatial;
+    private Button research;
     private Button fleet;
 
 
@@ -85,10 +86,12 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         gas = (TextView) findViewById(R.id.gaz);
         mineraux = (TextView) findViewById(R.id.mineraux);
         deconnect = (Button) findViewById(R.id.deconnect);
+        research = (Button) findViewById(R.id.research);
         buildings = (Button) findViewById(R.id.buildings);
         galaxie = (Button) findViewById(R.id.galaxie);
         chantierSpatial = (Button) findViewById(R.id.chantierSpatial);
         deconnect.setOnClickListener(this);
+        research.setOnClickListener(this);
         buildings.setOnClickListener(this);
         galaxie.setOnClickListener(this);
         chantierSpatial.setOnClickListener(this);
@@ -160,6 +163,12 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
                 Intent fleetIntent = new Intent(getApplicationContext(), FleetActivity.class);
                 startActivity(fleetIntent);
+                break;
+
+            case R.id.research:
+
+                Intent researchIntent = new Intent(getApplicationContext(), ResearchActivity.class);
+                startActivity(researchIntent);
                 break;
         }
     }

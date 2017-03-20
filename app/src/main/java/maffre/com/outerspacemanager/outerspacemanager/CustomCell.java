@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,7 @@ public class CustomCell extends ArrayAdapter<Building> {
     private TextView buildingCristalCost;
     private TextView buildingOnConstruct;
     private TextView buildingConstructTime;
+    private ImageView imageView;
 
     private final Context applicationContext;
     private final ArrayList<Building> buildings;
@@ -59,6 +63,7 @@ public class CustomCell extends ArrayAdapter<Building> {
         buildingLevel = (TextView) rowView.findViewById(R.id.buildingLevel);
         buildingMetalCost = (TextView) rowView.findViewById(R.id.buildingMetalCost);
         buildingConstructTime = (TextView) rowView.findViewById(R.id.buildingConstructTime);
+        imageView = (ImageView) rowView.findViewById(R.id.imageView);
 
 
         buildingName.setText(buildings.get(position).getName());
@@ -67,11 +72,25 @@ public class CustomCell extends ArrayAdapter<Building> {
         buildingMetalCost.setText("Cout en Metal : "+buildings.get(position).getMineralCostLevel() + (buildings.get(position).getMineralCostByLevel() * buildings.get(position).getLevel()));
         buildingOnConstruct.setText("Temps de construction : "+buildings.get(position).getTimeToBuildLevel0() + (buildings.get(position).getTimeToBuildByLevel() * buildings.get(position).getLevel()) +" ms");
 
+
         if (buildings.get(position).isBuilding() == true) {
             buildingConstructTime.setText("Batiment en construction");
         } else {
             buildingConstructTime.setText("");
         }
+
+
+
+        //image
+        String url = buildings.get(position).getImageUrl();
+
+        Glide
+            .with(applicationContext)
+            .load(url)
+            .centerCrop()
+            .crossFade()
+            .into(imageView);
+
 
         return rowView;
     }

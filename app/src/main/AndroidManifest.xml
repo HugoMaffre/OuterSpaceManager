@@ -27,7 +27,7 @@
         <activity android:name=".UsersActivity"></activity>
         <activity android:name=".ChantierActivity"></activity>
         <activity android:name=".FleetActivity"></activity>
-        <activity android:name=".AttackActivity"></activity>
+        <activity android:name=".ResearchActivity"></activity>
     </application>
 
 </manifest>

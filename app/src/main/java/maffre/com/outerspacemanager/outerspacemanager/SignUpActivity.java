@@ -128,14 +128,32 @@ public class SignUpActivity extends Activity implements View.OnClickListener{
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
 
-                        Intent myIntent = new Intent(getApplicationContext(), MenuActivity.class);
-                        startActivity(myIntent);
+
+
+                        if (response.code() == 200) {
+                            SharedPreferences settings = getSharedPreferences(USER_DATA, 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("accessToken", response.body().getAccessToken());
+                            editor.putLong("expiration", response.body().getExpiration());
+
+                            // Commit the edits!
+                            editor.commit();
+
+                            Intent myIntent = new Intent(getApplicationContext(), MenuActivity.class);
+                            startActivity(myIntent);
+                        } else {
+                            Context context = getApplicationContext();
+                            CharSequence text = "Error";
+                            int duration = Toast.LENGTH_SHORT;
+                        }
 
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-
+                        Context context = getApplicationContext();
+                        CharSequence text = "Error";
+                        int duration = Toast.LENGTH_SHORT;
                     }
                 });
 

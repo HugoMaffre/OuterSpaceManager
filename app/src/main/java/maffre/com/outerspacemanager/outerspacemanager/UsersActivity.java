@@ -1,12 +1,16 @@
 package maffre.com.outerspacemanager.outerspacemanager;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,10 +26,11 @@ import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER
  * Created by mac2 on 14/03/2017.
  */
 
-public class UsersActivity extends AppCompatActivity{
+public class UsersActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
 
     private ListView usersList;
+
     //retrofit
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://outer-space-manager.herokuapp.com")
@@ -49,6 +54,7 @@ public class UsersActivity extends AppCompatActivity{
 
 
         usersList = (ListView) findViewById(R.id.usersList);
+        usersList.setOnItemClickListener(this);
 
         //appel de l'interface create
         loginInterface service = retrofit.create(loginInterface.class);
@@ -71,12 +77,21 @@ public class UsersActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-
+                Context context = getApplicationContext();
+                CharSequence text = "Error loading users";
+                int duration = Toast.LENGTH_SHORT;
             }
         });
 
 
+
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
+        Intent attackIntent = new Intent(getApplicationContext(), AttackActivity.class);
+        startActivity(attackIntent);
+
+    }
 }

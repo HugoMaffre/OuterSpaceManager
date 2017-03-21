@@ -1,32 +1,28 @@
 package maffre.com.outerspacemanager.outerspacemanager;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Header;
 
 import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
 
@@ -58,6 +54,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
 
         buildingsList = (ListView) findViewById(R.id.buildingsList);
         buildingsList.setOnItemClickListener(this);
+        final BuildingDataSource buildingDataSource = new BuildingDataSource(getApplicationContext());
 
         //appel de l'interface create
         loginInterface service = retrofit.create(loginInterface.class);
@@ -69,7 +66,9 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
             public void onResponse(Call<Buildings> call, Response<Buildings> response) {
 
                 ArrayList<Building> buildings = response.body().getBuildings();
-                buildingsList.setAdapter(new CustomCell(BuildingsActivity.this, buildings));
+                buildingDataSource.open();
+                buildingsList.setAdapter(new CustomAdapter(BuildingsActivity.this, buildings, buildingDataSource.getBuildings()));
+                buildingDataSource.close();
                 mProgressDialog.dismiss();
 
             }
@@ -84,7 +83,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+    public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
 
         // Current Access Token
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
@@ -105,11 +104,25 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
                             @Override
                             public void onResponse(Call<Building> call, Response<Building> response) {
 
-
-
+                                 Building buildingRow = ((CustomAdapter)parent.getAdapter()).getItem(position);
 
                                 if (response.code() == 200) {
+                                    //ajout en base de données
+                                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                                    {
+                                        if (ActivityCompat.shouldShowRequestPermissionRationale(BuildingsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
+                                        } else {
+                                            ActivityCompat.requestPermissions(BuildingsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                                        }
+                                    }else {
+
+                                        final BuildingDataSource buildingDataSource = new BuildingDataSource(getApplicationContext());
+                                        buildingDataSource.open();
+                                        buildingDataSource.createBuilding(buildingRow.getName(),buildingRow.getLevel(), buildingRow.getTimeToBuildByLevel(), buildingRow.getTimeToBuildLevel0(), System.currentTimeMillis(), position);
+                                        buildingDataSource.close();
+
+                                    }
                                     Context context = getApplicationContext();
                                     CharSequence text = "Batiment augmenté";
                                     int duration = Toast.LENGTH_SHORT;

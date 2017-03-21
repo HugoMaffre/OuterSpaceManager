@@ -1,5 +1,8 @@
 package maffre.com.outerspacemanager.outerspacemanager;
 
+import android.content.Context;
+
+import java.util.UUID;
 /**
  * Created by mac2 on 07/03/2017.
  */
@@ -19,7 +22,7 @@ public class Building {
     private int timeToBuildByLevel;
     private int timeToBuildLevel0;
     private String imageUrl;
-
+    private int id;
 
 
 
@@ -42,6 +45,17 @@ public class Building {
         this.imageUrl = imageUrl;
     }
 
+    public Building(int id, String name, int timeToBuildLevel0, int timeToBuildByLevel, int level) {
+        this.id = id;
+        this.name = name;
+        this.timeToBuildLevel0 = timeToBuildLevel0;
+        this.timeToBuildByLevel = timeToBuildByLevel;
+        this.level = level;
+    }
+
+    public Building() {
+
+    }
 
 
 
@@ -55,6 +69,10 @@ public class Building {
 
     public boolean isBuilding() {
         return building;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getEffect() {
@@ -95,4 +113,60 @@ public class Building {
 
     public String getImageUrl() { return imageUrl; }
 
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setAmountOfEffectByLevel(int amountOfEffectByLevel) {
+        this.amountOfEffectByLevel = amountOfEffectByLevel;
+    }
+
+    public void setAmountOfEffectLevel(int amountOfEffectLevel) {
+        this.amountOfEffectLevel = amountOfEffectLevel;
+    }
+
+    public void setBuilding(boolean building) {
+        this.building = building;
+    }
+
+    public void setEffect(String effect) {
+        this.effect = effect;
+    }
+
+    public void setGasCostByLevel(int gasCostByLevel) {
+        this.gasCostByLevel = gasCostByLevel;
+    }
+
+    public void setGasCostLevel(int gasCostLevel) {
+        this.gasCostLevel = gasCostLevel;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setMineralCostByLevel(int mineralCostByLevel) {
+        this.mineralCostByLevel = mineralCostByLevel;
+    }
+
+    public void setMineralCostLevel(int mineralCostLevel) {
+        this.mineralCostLevel = mineralCostLevel;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTimeToBuildByLevel(int timeToBuildByLevel) {
+        this.timeToBuildByLevel = timeToBuildByLevel;
+    }
+
+    public void setTimeToBuildLevel0(int timeToBuildLevel0) {
+        this.timeToBuildLevel0 = timeToBuildLevel0;
+    }
 }

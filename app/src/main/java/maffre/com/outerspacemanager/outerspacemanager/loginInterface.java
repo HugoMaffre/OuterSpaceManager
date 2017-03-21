@@ -47,5 +47,8 @@ public interface loginInterface {
     Call<Ship> createShip (@Header("x-access-token") String token, @Path("shipId") int shipId, @Body shipQueryObject amount);
 
 
+    //@POST("/api/v1/fleet/attack/{username}")
+    //Call newAttack(@Header("username") String token, @Body ShipAttackObject ships);
+    
 
 }

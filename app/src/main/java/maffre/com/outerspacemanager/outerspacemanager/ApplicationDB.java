@@ -10,17 +10,19 @@ import android.os.Environment;
  */
 
 public class ApplicationDB extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
-    private static final String DATABASE_NAME = "MyDB.db";
+    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "BuildingsDb";
     public static final String BUILDING_TABLE = "Building";
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
-    public static final int KEY_LEVEL = 0;
-    public static final int KEY_timeToBuildByLevel = 0;
-    public static final int KEY_timeToBuildLevel0 = 0;
+    public static final String KEY_LEVEL = "level";
+    public static final String KEY_CURRENTDATE = "currentDate";
+    public static final String KEY_timeToBuildByLevel = "timeToBuildByLevel";
+    public static final String KEY_timeToBuildLevel0 = "timeToBuildLevel0";
+    public static final String KEY_currentDate = "currentDate";
 
 
-    private static final String BUILDING_TABLE_CREATE = "CREATE TABLE " + BUILDING_TABLE + " (" + KEY_ID + " TEXT, " + KEY_NAME + " TEXT, " + KEY_LEVEL + " INT, " + KEY_timeToBuildByLevel + " INT, " + KEY_timeToBuildLevel0 + " INT; " ;
+    private static final String BUILDING_TABLE_CREATE = "CREATE TABLE " + BUILDING_TABLE + " (" + KEY_ID + " INT, " + KEY_NAME + " TEXT, " + KEY_LEVEL + " INT, " + KEY_timeToBuildByLevel + " REAL, "+ KEY_timeToBuildLevel0 + " REAL, " + KEY_currentDate + " REAL );" ;
 
 
 

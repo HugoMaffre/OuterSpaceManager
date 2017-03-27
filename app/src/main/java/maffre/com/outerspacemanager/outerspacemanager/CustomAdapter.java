@@ -85,20 +85,24 @@ public class CustomAdapter extends ArrayAdapter<Building> {
         if (buildings.get(position).isBuilding()) {
 
             if (buildingsDb.containsKey(buildings.get(position).getId())){
-                long tempsEcoule = System.currentTimeMillis() - buildingsDb.get(buildings.get(position).getId()).getCurrentDate();
-                long tempsTotal = buildings.get(buildings.get(position).getId()).getTimeToBuildLevel0() + (buildings.get(buildings.get(position).getId()).getTimeToBuildByLevel() * buildings.get(buildings.get(position).getId()).getLevel())*1000;
+                long tempsEcoule = System.currentTimeMillis() - buildingsDb.get(buildings.get(position)).getCurrentDate();
+                long tempsTotal = buildings.get(buildings.get(position).getId()).getTimeToBuildLevel0() +
+                        (buildings.get(buildings.get(position).getId()).getTimeToBuildByLevel() * buildings.get(buildings.get(position).getId()).getLevel()) * 1000;
+                
+                float pourcent = (float)tempsEcoule/tempsTotal*100;
+                int pourcentRound = Math.round(pourcent);
                 long tempsRestant = tempsTotal - tempsEcoule;
-                long pourcent = (tempsRestant/tempsTotal)*100;
 
-                buildingConstructTime.setText(String.valueOf(tempsTotal));
-                buildingOnConstruct.setText("En construction");
-                progressBar.setProgress(50);
+                buildingConstructTime.setVisibility(rowView.GONE);
+                buildingOnConstruct.setText("En construction :\n"+ tempsRestant/60000 +" min restantes");
+                progressBar.setProgress(pourcentRound);
             }
 
             //sinon
         } else {
-            buildingOnConstruct.setText("Pas en construction");
-            buildingConstructTime.setText("Temps pour augmenter :"+buildings.get(position).getTimeToBuildLevel0()+(buildings.get(position).getTimeToBuildByLevel()*buildings.get(position).getLevel()) +" ms");
+            buildingOnConstruct.setVisibility(rowView.GONE);
+            long timeToBuild = buildings.get(position).getTimeToBuildLevel0()+(buildings.get(position).getTimeToBuildByLevel()*buildings.get(position).getLevel());
+            buildingConstructTime.setText("Temps pour augmenter :"+ timeToBuild/60 +" min");
             progressBar.setVisibility(rowView.GONE);
         }
 

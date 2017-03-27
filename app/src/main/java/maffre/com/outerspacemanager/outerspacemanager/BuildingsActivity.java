@@ -66,11 +66,20 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
             public void onResponse(Call<Buildings> call, Response<Buildings> response) {
 
                 ArrayList<Building> buildings = response.body().getBuildings();
-                buildingDataSource.open();
-                buildingsList.setAdapter(new CustomAdapter(BuildingsActivity.this, buildings, buildingDataSource.getBuildings()));
-                buildingDataSource.close();
-                mProgressDialog.dismiss();
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(BuildingsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
+                    } else {
+                        ActivityCompat.requestPermissions(BuildingsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                    }
+                }else {
+                    buildingDataSource.open();
+                    buildingsList.setAdapter(new CustomAdapter(BuildingsActivity.this, buildings, buildingDataSource.getBuildings()));
+                    buildingDataSource.close();
+
+                }
+                mProgressDialog.dismiss();
             }
 
             @Override

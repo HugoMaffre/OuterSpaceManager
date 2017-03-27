@@ -24,7 +24,7 @@ public class BuildingDataSource {
     // Database fields
     private SQLiteDatabase database;
     private ApplicationDB dbHelper;
-    private String[] allColumns = { ApplicationDB.KEY_ID,ApplicationDB.KEY_NAME, ApplicationDB.KEY_LEVEL, ApplicationDB.KEY_timeToBuildByLevel, ApplicationDB.KEY_timeToBuildLevel0};
+    private String[] allColumns = { ApplicationDB.KEY_ID,ApplicationDB.KEY_NAME, ApplicationDB.KEY_LEVEL, ApplicationDB.KEY_timeToBuildByLevel, ApplicationDB.KEY_timeToBuildLevel0, ApplicationDB.KEY_currentDate};
 
 
     public BuildingDataSource(Context context) {
@@ -66,10 +66,10 @@ public class BuildingDataSource {
 
 
         current.setName(cursor.getString(1));
-        current.setLevel(cursor.getInt(1));
-        current.setCurrentTime(cursor.getInt(1));
-        current.setTimeToBuildByLevel(cursor.getInt(2));
-        current.setTimeToBuildLevel0(cursor.getInt(3));
+        current.setLevel(cursor.getInt(2));
+        current.setTimeToBuildByLevel(cursor.getInt(3));
+        current.setTimeToBuildLevel0(cursor.getInt(4));
+        current.setCurrentDate(cursor.getLong(5));
 
         return current;
     }

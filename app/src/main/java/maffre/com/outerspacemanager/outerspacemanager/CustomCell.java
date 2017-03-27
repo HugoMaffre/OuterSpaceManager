@@ -70,7 +70,7 @@ public class CustomCell extends ArrayAdapter<Building> {
         buildingLevel.setText("Niveau  : "+buildings.get(position).getLevel());
         buildingCristalCost.setText("Cout en Cristal : "+buildings.get(position).getGasCostLevel() + (buildings.get(position).getGasCostByLevel() * buildings.get(position).getLevel()));
         buildingMetalCost.setText("Cout en Metal : "+buildings.get(position).getMineralCostLevel() + (buildings.get(position).getMineralCostByLevel() * buildings.get(position).getLevel()));
-        buildingOnConstruct.setText("Temps de construction : "+buildings.get(position).getTimeToBuildLevel0() + (buildings.get(position).getTimeToBuildByLevel() * buildings.get(position).getLevel()) +" ms");
+        //buildingOnConstruct.setText("Temps de construction : "+buildings.get(position).getTimeToBuildLevel0() + (buildings.get(position).getTimeToBuildByLevel() * buildings.get(position).getLevel()) +" ms");
 
 
         if (buildings.get(position).isBuilding() == true) {

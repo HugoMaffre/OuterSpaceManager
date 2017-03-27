@@ -9,14 +9,14 @@ public class BuildingDB {
     private long timeToBuildByLevel;
     private long timeToBuildLevel0;
     private int id;
-    private long currentTime;
+    private long currentDate;
 
 
 
 
     public BuildingDB(int level, String name, long timeToBuildByLevel, long timeToBuildLevel0, int id, long currentTime) {
         this.level = level;
-        this.currentTime = currentTime;
+        this.currentDate = currentTime;
         this.name = name;
         this.timeToBuildByLevel = timeToBuildByLevel;
         this.timeToBuildLevel0 = timeToBuildLevel0;
@@ -29,8 +29,8 @@ public class BuildingDB {
     }
 
 
-    public long getCurrentTime() {
-        return currentTime;
+    public long getCurrentDate() {
+        return currentDate;
     }
 
     public int getId() {
@@ -74,7 +74,7 @@ public class BuildingDB {
     }
 
 
-    public void setCurrentTime(int currentTime) {
-        this.currentTime = currentTime;
+    public void setCurrentDate(long currentDate) {
+        this.currentDate = currentDate;
     }
 }

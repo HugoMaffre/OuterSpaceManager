@@ -10,13 +10,12 @@ import android.os.Environment;
  */
 
 public class ApplicationDB extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "BuildingsDb";
     public static final String BUILDING_TABLE = "Building";
     public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
     public static final String KEY_LEVEL = "level";
-    public static final String KEY_CURRENTDATE = "currentDate";
     public static final String KEY_timeToBuildByLevel = "timeToBuildByLevel";
     public static final String KEY_timeToBuildLevel0 = "timeToBuildLevel0";
     public static final String KEY_currentDate = "currentDate";

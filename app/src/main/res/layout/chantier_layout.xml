@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/amount" />
+        android:id="@+id/amount"
+        android:text="0" />
 
     <ListView
         android:layout_width="match_parent"

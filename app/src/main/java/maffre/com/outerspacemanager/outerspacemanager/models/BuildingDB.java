@@ -1,4 +1,4 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.models;
 
 /**
  * Created by maffreh on 21/03/2017.

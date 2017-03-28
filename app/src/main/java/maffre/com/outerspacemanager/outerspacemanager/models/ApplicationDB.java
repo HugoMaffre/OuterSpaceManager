@@ -1,4 +1,4 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.models;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,7 +10,7 @@ import android.os.Environment;
  */
 
 public class ApplicationDB extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "BuildingsDb";
     public static final String BUILDING_TABLE = "Building";
     public static final String KEY_ID = "id";

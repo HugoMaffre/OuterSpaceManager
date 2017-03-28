@@ -1,4 +1,4 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,19 +9,23 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import maffre.com.outerspacemanager.outerspacemanager.R;
+import maffre.com.outerspacemanager.outerspacemanager.adapters.SearchCustomAdapter;
+import maffre.com.outerspacemanager.outerspacemanager.models.Research;
+import maffre.com.outerspacemanager.outerspacemanager.network.RequestsInterface;
+import maffre.com.outerspacemanager.outerspacemanager.models.Researches;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
+import static maffre.com.outerspacemanager.outerspacemanager.activities.SignUpActivity.USER_DATA;
 
 /**
  * Created by mac2 on 20/03/2017.
@@ -57,7 +61,7 @@ public class ResearchActivity extends AppCompatActivity implements AdapterView.O
         researchesList.setOnItemClickListener(this);
 
         //appel de l'interface create
-        loginInterface service = retrofit.create(loginInterface.class);
+        RequestsInterface service = retrofit.create(RequestsInterface.class);
         Call<Researches> request = service.getResearches(currentAccessToken);
 
 
@@ -67,7 +71,7 @@ public class ResearchActivity extends AppCompatActivity implements AdapterView.O
 
 
                 ArrayList<Research> researches = response.body().getResearches();
-                researchesList.setAdapter(new SearchCustomCell(ResearchActivity.this, researches));
+                researchesList.setAdapter(new SearchCustomAdapter(ResearchActivity.this, researches));
                 mProgressDialog.dismiss();
 
             }
@@ -95,7 +99,7 @@ public class ResearchActivity extends AppCompatActivity implements AdapterView.O
                     public void onClick(DialogInterface dialog, int which) {
 
 
-                        loginInterface service = retrofit.create(loginInterface.class);
+                        RequestsInterface service = retrofit.create(RequestsInterface.class);
                         Call<Research> request= service.createResearch(currentAccessToken, position);
 
 

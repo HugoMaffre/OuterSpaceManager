@@ -1,20 +1,19 @@
 
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.adapters;
 
         import android.content.Context;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ArrayAdapter;
-        import android.widget.EditText;
         import android.widget.TextView;
 
         import java.util.ArrayList;
 
-        import maffre.com.outerspacemanager.outerspacemanager.Building;
         import maffre.com.outerspacemanager.outerspacemanager.R;
+        import maffre.com.outerspacemanager.outerspacemanager.models.Research;
 
-    public class SearchCustomCell extends ArrayAdapter<Research> {
+public class SearchCustomAdapter extends ArrayAdapter<Research> {
 
         private TextView searchName;
         private TextView searchLevel;
@@ -26,7 +25,7 @@ package maffre.com.outerspacemanager.outerspacemanager;
         private final Context applicationContext;
         private final ArrayList<Research> searches;
 
-        public SearchCustomCell(Context applicationContext, ArrayList<Research> researches) {
+        public SearchCustomAdapter(Context applicationContext, ArrayList<Research> researches) {
 
             super(applicationContext, R.layout.search_cell, researches);
             this.applicationContext = applicationContext;

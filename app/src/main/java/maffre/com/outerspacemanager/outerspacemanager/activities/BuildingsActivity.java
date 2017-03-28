@@ -1,4 +1,4 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -18,13 +18,19 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import maffre.com.outerspacemanager.outerspacemanager.adapters.BuildingsCustomAdapter;
+import maffre.com.outerspacemanager.outerspacemanager.R;
+import maffre.com.outerspacemanager.outerspacemanager.models.Building;
+import maffre.com.outerspacemanager.outerspacemanager.models.BuildingDataSource;
+import maffre.com.outerspacemanager.outerspacemanager.models.Buildings;
+import maffre.com.outerspacemanager.outerspacemanager.network.RequestsInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
+import static maffre.com.outerspacemanager.outerspacemanager.activities.SignUpActivity.USER_DATA;
 
 public class BuildingsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -57,7 +63,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
         final BuildingDataSource buildingDataSource = new BuildingDataSource(getApplicationContext());
 
         //appel de l'interface create
-        loginInterface service = retrofit.create(loginInterface.class);
+        RequestsInterface service = retrofit.create(RequestsInterface.class);
         Call<Buildings> request = service.getBuildings(currentAccessToken);
 
 
@@ -75,7 +81,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
                     }
                 }else {
                     buildingDataSource.open();
-                    buildingsList.setAdapter(new CustomAdapter(BuildingsActivity.this, buildings, buildingDataSource.getBuildings()));
+                    buildingsList.setAdapter(new BuildingsCustomAdapter(BuildingsActivity.this, buildings, buildingDataSource.getBuildings()));
                     buildingDataSource.close();
 
                 }
@@ -84,7 +90,12 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
 
             @Override
             public void onFailure(Call<Buildings> call, Throwable t) {
+                Context context = getApplicationContext();
+                CharSequence text = "Impossible de créer le batiment";
+                int duration = Toast.LENGTH_SHORT;
 
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
 
@@ -105,7 +116,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
                     public void onClick(DialogInterface dialog, int which) {
 
 
-                        loginInterface service = retrofit.create(loginInterface.class);
+                        RequestsInterface service = retrofit.create(RequestsInterface.class);
                         Call<Building> request= service.createBuilding(currentAccessToken, position);
 
 
@@ -113,7 +124,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
                             @Override
                             public void onResponse(Call<Building> call, Response<Building> response) {
 
-                                 Building buildingRow = ((CustomAdapter)parent.getAdapter()).getItem(position);
+                                 Building buildingRow = ((BuildingsCustomAdapter)parent.getAdapter()).getItem(position);
 
                                 if (response.code() == 200) {
                                     //ajout en base de données
@@ -141,7 +152,7 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
 
                                 } else {
                                     Context context = getApplicationContext();
-                                    CharSequence text = "Déjà en construction";
+                                    CharSequence text = "Déjà en construction ou pas assez de ressources";
                                     int duration = Toast.LENGTH_SHORT;
 
                                     Toast toast = Toast.makeText(context, text, duration);
@@ -155,7 +166,12 @@ public class BuildingsActivity extends AppCompatActivity implements AdapterView.
 
                             @Override
                             public void onFailure(Call<Building> call, Throwable t) {
+                                Context context = getApplicationContext();
+                                CharSequence text = "Impossible de créer le batiment";
+                                int duration = Toast.LENGTH_SHORT;
 
+                                Toast toast = Toast.makeText(context, text, duration);
+                                toast.show();
                             }
                         });
                     }

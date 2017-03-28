@@ -1,4 +1,4 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import maffre.com.outerspacemanager.outerspacemanager.R;
+import maffre.com.outerspacemanager.outerspacemanager.models.User;
+import maffre.com.outerspacemanager.outerspacemanager.network.RequestsInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
+import static maffre.com.outerspacemanager.outerspacemanager.activities.SignUpActivity.USER_DATA;
 
 
 
@@ -50,7 +54,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
         SharedPreferences users = getSharedPreferences(USER_DATA, 0);
         String currentAccessToken = users.getString("accessToken", "");
         //appel de l'interface create
-        loginInterface service = retrofit.create(loginInterface.class);
+        RequestsInterface service = retrofit.create(RequestsInterface.class);
         Call<User> request= service.getUser(currentAccessToken);
 
         request.enqueue(new Callback<User>() {
@@ -104,7 +108,7 @@ public class MenuActivity extends Activity implements View.OnClickListener {
 
 
         //appel de l'interface create
-        loginInterface service = retrofit.create(loginInterface.class);
+        RequestsInterface service = retrofit.create(RequestsInterface.class);
         Call<User> request= service.getUser(currentAccessToken);
 
 
@@ -136,8 +140,12 @@ public class MenuActivity extends Activity implements View.OnClickListener {
             case R.id.deconnect:
 
                 // Current Access Token
-                SharedPreferences.Editor editor = settings.edit();
+                SharedPreferences users = getSharedPreferences(USER_DATA, 0);
+                SharedPreferences.Editor editor = users.edit();
                 editor.putString("accessToken", "");
+                Intent decoIntent = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(decoIntent);
+
                 break;
 
             case R.id.buildings:

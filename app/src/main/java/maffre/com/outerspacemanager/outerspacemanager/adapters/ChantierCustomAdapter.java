@@ -1,19 +1,18 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import maffre.com.outerspacemanager.outerspacemanager.Building;
 import maffre.com.outerspacemanager.outerspacemanager.R;
+import maffre.com.outerspacemanager.outerspacemanager.models.Ship;
 
-public class ChantierCustomCell extends ArrayAdapter<Ship> {
+public class ChantierCustomAdapter extends ArrayAdapter<Ship> {
 
     private TextView shipName;
     private TextView cost;
@@ -23,7 +22,7 @@ public class ChantierCustomCell extends ArrayAdapter<Ship> {
     private final Context applicationContext;
     private final ArrayList<Ship> ships;
 
-    public ChantierCustomCell(Context applicationContext, ArrayList<Ship> ships) {
+    public ChantierCustomAdapter(Context applicationContext, ArrayList<Ship> ships) {
 
         super(applicationContext, R.layout.chantier_cell_layout, ships);
         this.applicationContext = applicationContext;

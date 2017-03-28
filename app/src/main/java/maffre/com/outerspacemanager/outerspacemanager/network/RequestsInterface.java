@@ -1,7 +1,14 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.network;
 
-import java.util.List;
-
+import maffre.com.outerspacemanager.outerspacemanager.models.Building;
+import maffre.com.outerspacemanager.outerspacemanager.models.Buildings;
+import maffre.com.outerspacemanager.outerspacemanager.models.Research;
+import maffre.com.outerspacemanager.outerspacemanager.models.Researches;
+import maffre.com.outerspacemanager.outerspacemanager.models.Ship;
+import maffre.com.outerspacemanager.outerspacemanager.models.ShipQueryObject;
+import maffre.com.outerspacemanager.outerspacemanager.models.Ships;
+import maffre.com.outerspacemanager.outerspacemanager.models.User;
+import maffre.com.outerspacemanager.outerspacemanager.models.Users;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -14,7 +21,7 @@ import retrofit2.http.Path;
  * Created by mac2 on 07/03/2017.
  */
 
-public interface loginInterface {
+public interface RequestsInterface {
 
     @GET("/api/v1/users/get")
     Call<User> getUser (@Header("x-access-token") String token);
@@ -44,7 +51,7 @@ public interface loginInterface {
     Call<Research> createResearch (@Header("x-access-token") String token, @Path("searchId") int searchId);
 
     @POST("/api/v1/ships/create/{shipId}")
-    Call<Ship> createShip (@Header("x-access-token") String token, @Path("shipId") int shipId, @Body shipQueryObject amount);
+    Call<Ship> createShip (@Header("x-access-token") String token, @Path("shipId") int shipId, @Body ShipQueryObject amount);
 
 
     //@POST("/api/v1/fleet/attack/{username}")

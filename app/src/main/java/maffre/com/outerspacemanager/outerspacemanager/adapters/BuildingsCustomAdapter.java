@@ -1,13 +1,10 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.adapters;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,7 +13,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import maffre.com.outerspacemanager.outerspacemanager.R;
+import maffre.com.outerspacemanager.outerspacemanager.models.Building;
+import maffre.com.outerspacemanager.outerspacemanager.models.BuildingDB;
 
 import static java.lang.String.valueOf;
 
@@ -24,14 +24,7 @@ import static java.lang.String.valueOf;
  * Created by mac2 on 14/03/2017.
  */
 
-
-
-
-
-
-
-
-public class CustomAdapter extends ArrayAdapter<Building> {
+public class BuildingsCustomAdapter extends ArrayAdapter<Building> {
 
     private TextView buildingName;
     private TextView buildingLevel;
@@ -46,7 +39,7 @@ public class CustomAdapter extends ArrayAdapter<Building> {
     private final ArrayList<Building> buildings;
     private final HashMap<Integer, BuildingDB> buildingsDb;
 
-    public CustomAdapter(Context applicationContext, ArrayList<Building> buildings, HashMap<Integer, BuildingDB> buildingsDb) {
+    public BuildingsCustomAdapter(Context applicationContext, ArrayList<Building> buildings, HashMap<Integer, BuildingDB> buildingsDb) {
 
         super(applicationContext, R.layout.custom_view_cell, buildings);
         this.applicationContext = applicationContext;
@@ -65,29 +58,33 @@ public class CustomAdapter extends ArrayAdapter<Building> {
 
 
 
-        buildingOnConstruct = (TextView) rowView.findViewById(R.id.buildingOnConstruct);
+
         buildingCristalCost = (TextView) rowView.findViewById(R.id.buildingCristalCost);
         buildingName = (TextView) rowView.findViewById(R.id.buildingName);
         buildingLevel = (TextView) rowView.findViewById(R.id.buildingLevel);
         buildingMetalCost = (TextView) rowView.findViewById(R.id.buildingMetalCost);
         buildingConstructTime = (TextView) rowView.findViewById(R.id.buildingConstructTime);
-        progressBar = (ProgressBar) rowView.findViewById(R.id.progressBar);
         imageView = (ImageView) rowView.findViewById(R.id.imageView);
+        buildingOnConstruct = (TextView) rowView.findViewById(R.id.buildingOnConstruct);
+        progressBar = (ProgressBar) rowView.findViewById(R.id.progressBar);
 
 
-        buildingName.setText(buildings.get(position).getName());
-        buildingLevel.setText("Niveau  : "+buildings.get(position).getLevel());
-        buildingCristalCost.setText("Cout en Cristal : "+buildings.get(position).getGasCostLevel() + (buildings.get(position).getGasCostByLevel() * buildings.get(position).getLevel()));
-        buildingMetalCost.setText("Cout en Metal : "+buildings.get(position).getMineralCostLevel() + (buildings.get(position).getMineralCostByLevel() * buildings.get(position).getLevel()));
+        Building currentBuilding = getItem(position);
+        buildingName.setText(currentBuilding.getName());
+        buildingLevel.setText("Niveau  : "+currentBuilding.getLevel());
+        buildingCristalCost.setText("Cout en Cristal : "+currentBuilding.getGasCostLevel() + (currentBuilding.getGasCostByLevel() * currentBuilding.getLevel()));
+        buildingMetalCost.setText("Cout en Metal : "+currentBuilding.getMineralCostLevel() + (currentBuilding.getMineralCostByLevel() * currentBuilding.getLevel()));
 
 
         //si le batiment est en construction
         if (buildings.get(position).isBuilding()) {
 
-            if (buildingsDb.containsKey(buildings.get(position).getId())){
-                long tempsEcoule = System.currentTimeMillis() - buildingsDb.get(buildings.get(position)).getCurrentDate();
-                long tempsTotal = buildings.get(buildings.get(position).getId()).getTimeToBuildLevel0() +
-                        (buildings.get(buildings.get(position).getId()).getTimeToBuildByLevel() * buildings.get(buildings.get(position).getId()).getLevel()) * 1000;
+            if (buildingsDb.containsKey(currentBuilding.getId())){
+
+
+                long tempsEcoule = System.currentTimeMillis() - buildingsDb.get(currentBuilding.getId()).getCurrentDate();
+                long tempsTotal = buildingsDb.get(currentBuilding.getId()).getTimeToBuildLevel0() +
+                        (buildingsDb.get(currentBuilding.getId()).getTimeToBuildByLevel() * buildingsDb.get(currentBuilding.getId()).getLevel()) * 1000;
                 
                 float pourcent = (float)tempsEcoule/tempsTotal*100;
                 int pourcentRound = Math.round(pourcent);
@@ -102,7 +99,7 @@ public class CustomAdapter extends ArrayAdapter<Building> {
         } else {
             buildingOnConstruct.setVisibility(rowView.GONE);
             long timeToBuild = buildings.get(position).getTimeToBuildLevel0()+(buildings.get(position).getTimeToBuildByLevel()*buildings.get(position).getLevel());
-            buildingConstructTime.setText("Temps pour augmenter :"+ timeToBuild/60 +" min");
+            buildingConstructTime.setText("Amélioration disponible !");
             progressBar.setVisibility(rowView.GONE);
         }
 

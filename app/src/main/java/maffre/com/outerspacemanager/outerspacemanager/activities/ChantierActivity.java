@@ -1,4 +1,4 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,6 +15,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import maffre.com.outerspacemanager.outerspacemanager.adapters.ChantierCustomAdapter;
+import maffre.com.outerspacemanager.outerspacemanager.R;
+import maffre.com.outerspacemanager.outerspacemanager.models.Ship;
+import maffre.com.outerspacemanager.outerspacemanager.models.ShipQueryObject;
+import maffre.com.outerspacemanager.outerspacemanager.models.Ships;
+import maffre.com.outerspacemanager.outerspacemanager.network.RequestsInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static java.lang.String.valueOf;
-import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
+import static maffre.com.outerspacemanager.outerspacemanager.activities.SignUpActivity.USER_DATA;
 
 /**
  * Created by mac2 on 14/03/2017.
@@ -66,7 +72,7 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
 
 
         //appel de l'interface create
-        loginInterface service = retrofit.create(loginInterface.class);
+        RequestsInterface service = retrofit.create(RequestsInterface.class);
         Call<Ships> request = service.getShips(currentAccessToken);
 
 
@@ -74,14 +80,29 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onResponse(Call<Ships> call, Response<Ships> response) {
 
-                ArrayList<Ship> ships = response.body().getShips();
-                shipsList.setAdapter(new ChantierCustomCell(getApplicationContext(), ships));
-                mProgressDialog.dismiss();
+                if (response.code() == 200) {
+                    ArrayList<Ship> ships = response.body().getShips();
+                    shipsList.setAdapter(new ChantierCustomAdapter(getApplicationContext(), ships));
+                    mProgressDialog.dismiss();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Impossible de récupérer les vaisseaux, avez-vous fait un chantier spatial ?";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+
             }
 
             @Override
             public void onFailure(Call<Ships> call, Throwable t) {
+                Context context = getApplicationContext();
+                CharSequence text = "Impossible de récupérer les vaisseaux";
+                int duration = Toast.LENGTH_SHORT;
 
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
 
@@ -107,8 +128,8 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
                     public void onClick(DialogInterface dialog, int which) {
 
 
-                        loginInterface service = retrofit.create(loginInterface.class);
-                        Call<Ship> request= service.createShip(currentAccessToken, position, new shipQueryObject(amount));
+                        RequestsInterface service = retrofit.create(RequestsInterface.class);
+                        Call<Ship> request= service.createShip(currentAccessToken, position, new ShipQueryObject(amount));
 
 
                         request.enqueue(new Callback<Ship>() {
@@ -121,7 +142,7 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
                                 if (response.code() == 200) {
 
                                     Context context = getApplicationContext();
-                                    CharSequence text = "Vaisseau créé";
+                                    CharSequence text = "Vaisseau en cours de création";
                                     int duration = Toast.LENGTH_SHORT;
 
                                     Toast toast = Toast.makeText(context, text, duration);
@@ -129,7 +150,7 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
 
                                 } else {
                                     Context context = getApplicationContext();
-                                    CharSequence text = "Error";
+                                    CharSequence text = "Vérifiez le nombre entré";
                                     int duration = Toast.LENGTH_SHORT;
 
                                     Toast toast = Toast.makeText(context, text, duration);
@@ -143,7 +164,12 @@ public class ChantierActivity extends AppCompatActivity implements AdapterView.O
 
                             @Override
                             public void onFailure(Call<Ship> call, Throwable t) {
+                                Context context = getApplicationContext();
+                                CharSequence text = "Impossible de créer Le vaisseau";
+                                int duration = Toast.LENGTH_SHORT;
 
+                                Toast toast = Toast.makeText(context, text, duration);
+                                toast.show();
                             }
                         });
                     }

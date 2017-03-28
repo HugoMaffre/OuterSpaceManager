@@ -1,6 +1,8 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.models;
 
 import java.util.ArrayList;
+
+import maffre.com.outerspacemanager.outerspacemanager.models.Building;
 
 /**
  * Created by mac2 on 07/03/2017.

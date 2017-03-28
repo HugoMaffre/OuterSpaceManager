@@ -1,4 +1,4 @@
-package maffre.com.outerspacemanager.outerspacemanager;
+package maffre.com.outerspacemanager.outerspacemanager.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,13 +14,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import maffre.com.outerspacemanager.outerspacemanager.R;
+import maffre.com.outerspacemanager.outerspacemanager.activities.AttackActivity;
+import maffre.com.outerspacemanager.outerspacemanager.models.Users;
+import maffre.com.outerspacemanager.outerspacemanager.network.RequestsInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static maffre.com.outerspacemanager.outerspacemanager.SignUpActivity.USER_DATA;
+import static maffre.com.outerspacemanager.outerspacemanager.activities.SignUpActivity.USER_DATA;
 
 /**
  * Created by mac2 on 14/03/2017.
@@ -57,7 +61,7 @@ public class UsersActivity extends AppCompatActivity implements AdapterView.OnIt
         usersList.setOnItemClickListener(this);
 
         //appel de l'interface create
-        loginInterface service = retrofit.create(loginInterface.class);
+        RequestsInterface service = retrofit.create(RequestsInterface.class);
         Call<Users> request = service.getUsers(currentAccessToken);
 
 
@@ -80,6 +84,9 @@ public class UsersActivity extends AppCompatActivity implements AdapterView.OnIt
                 Context context = getApplicationContext();
                 CharSequence text = "Error loading users";
                 int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
 
@@ -89,7 +96,7 @@ public class UsersActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
+        //Activité d'attaque
         Intent attackIntent = new Intent(getApplicationContext(), AttackActivity.class);
         startActivity(attackIntent);
 

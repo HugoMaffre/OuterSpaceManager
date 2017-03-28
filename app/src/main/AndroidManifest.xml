@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activities.SignUpActivity"
             android:label="Outer Space Manager">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +22,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".activities.MenuActivity"
             android:label="Outer Space Manager"></activity>
-        <activity android:name=".BuildingsActivity"></activity>
-        <activity android:name=".UsersActivity"></activity>
-        <activity android:name=".ChantierActivity"></activity>
-        <activity android:name=".FleetActivity"></activity>
-        <activity android:name=".ResearchActivity"></activity>
-        <activity android:name=".AttackActivity"></activity>
+        <activity android:name=".activities.BuildingsActivity"></activity>
+        <activity android:name=".activities.UsersActivity"></activity>
+        <activity android:name=".activities.ChantierActivity"></activity>
+        <activity android:name=".activities.FleetActivity"></activity>
+        <activity android:name=".activities.ResearchActivity"></activity>
+        <activity android:name=".activities.AttackActivity"></activity>
     </application>
 
 </manifest>
